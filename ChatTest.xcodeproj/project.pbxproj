@@ -18,6 +18,7 @@
 		1DB2DDFB1B7E91BC0055FD65 /* AsyncSocketSingleton.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DB2DDFA1B7E91BC0055FD65 /* AsyncSocketSingleton.m */; };
 		465678B21B852C8000F22644 /* SocketIOSingleton.m in Sources */ = {isa = PBXBuildFile; fileRef = 465678B11B852C8000F22644 /* SocketIOSingleton.m */; };
 		465678B51B86385000F22644 /* ChatUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 465678B41B86385000F22644 /* ChatUtilities.m */; };
+		46AD6DB81B866CE2003CDC14 /* ChatViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 46AD6DB71B866CE2003CDC14 /* ChatViewController.m */; };
 		D8E470BC1AA69F4A7728530B /* Pods_ChatTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F47B6BC6871BCD2BE2644F9C /* Pods_ChatTest.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 /* End PBXBuildFile section */
 
@@ -52,6 +53,8 @@
 		465678B11B852C8000F22644 /* SocketIOSingleton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SocketIOSingleton.m; sourceTree = "<group>"; };
 		465678B31B86385000F22644 /* ChatUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChatUtilities.h; sourceTree = "<group>"; };
 		465678B41B86385000F22644 /* ChatUtilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChatUtilities.m; sourceTree = "<group>"; };
+		46AD6DB61B866CE2003CDC14 /* ChatViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChatViewController.h; sourceTree = "<group>"; };
+		46AD6DB71B866CE2003CDC14 /* ChatViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChatViewController.m; sourceTree = "<group>"; };
 		6F3C34889BF0C47DAA47615D /* Pods-ChatTest.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ChatTest.release.xcconfig"; path = "Pods/Target Support Files/Pods-ChatTest/Pods-ChatTest.release.xcconfig"; sourceTree = "<group>"; };
 		C763974F2A376A7EE42CEC97 /* Pods-ChatTest.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ChatTest.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ChatTest/Pods-ChatTest.debug.xcconfig"; sourceTree = "<group>"; };
 		F47B6BC6871BCD2BE2644F9C /* Pods_ChatTest.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ChatTest.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -101,13 +104,15 @@
 			children = (
 				1DB2DDD11B7E8DC50055FD65 /* AppDelegate.h */,
 				1DB2DDD21B7E8DC50055FD65 /* AppDelegate.m */,
-				465678B61B8638D400F22644 /* Singletons */,
 				1DB2DDD71B7E8DC50055FD65 /* MasterViewController.h */,
 				1DB2DDD81B7E8DC50055FD65 /* MasterViewController.m */,
+				46AD6DB61B866CE2003CDC14 /* ChatViewController.h */,
+				46AD6DB71B866CE2003CDC14 /* ChatViewController.m */,
 				1DB2DDDD1B7E8DC50055FD65 /* Main.storyboard */,
 				1DB2DDE01B7E8DC50055FD65 /* Images.xcassets */,
 				1DB2DDE21B7E8DC50055FD65 /* LaunchScreen.xib */,
 				1DB2DDD41B7E8DC50055FD65 /* ChatTest.xcdatamodeld */,
+				465678B61B8638D400F22644 /* Singletons */,
 				1DB2DDCD1B7E8DC50055FD65 /* Supporting Files */,
 			);
 			path = ChatTest;
@@ -326,6 +331,7 @@
 				1DB2DDD91B7E8DC50055FD65 /* MasterViewController.m in Sources */,
 				1DB2DDD31B7E8DC50055FD65 /* AppDelegate.m in Sources */,
 				1DB2DDD61B7E8DC50055FD65 /* ChatTest.xcdatamodeld in Sources */,
+				46AD6DB81B866CE2003CDC14 /* ChatViewController.m in Sources */,
 				1DB2DDD01B7E8DC50055FD65 /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

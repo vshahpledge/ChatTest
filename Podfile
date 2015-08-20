@@ -9,6 +9,7 @@ pod 'CocoaAsyncSocket'
 pod 'MagicalRecord'
 pod 'Socket.IO-Client-Swift'
 pod 'UITextView+Placeholder'
+pod 'JSQMessagesViewController'
 
 end
 
