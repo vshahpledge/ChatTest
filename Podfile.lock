@@ -1,0 +1,19 @@
+PODS:
+  - CocoaAsyncSocket (7.4.2)
+  - MagicalRecord (2.3.0)
+  - Socket.IO-Client-Swift (2.4.3)
+  - UITextView+Placeholder (1.1.0)
+
+DEPENDENCIES:
+  - CocoaAsyncSocket
+  - MagicalRecord
+  - Socket.IO-Client-Swift
+  - UITextView+Placeholder
+
+SPEC CHECKSUMS:
+  CocoaAsyncSocket: f5783bdedd232d91b89769bc4b5a1580aed518ad
+  MagicalRecord: 89eb7d7ead39fb37f01c3d010665ee94d17f8dba
+  Socket.IO-Client-Swift: 4a7170cb0572a8490588ea1bc9e76f5dafc8150d
+  UITextView+Placeholder: 672ce543356b5b5787f354415bc3b132d47f0362
+
+COCOAPODS: 0.38.2

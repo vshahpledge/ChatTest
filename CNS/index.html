@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Socket.IO chat</title>
+  <style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font: 13px Helvetica, Arial; }
+  form { background: #36A; width: 100%; border-radius: 5px; padding: 1px 3px 3px 3px;}
+  form input { border: 0; padding: 10px; width: 90%; margin-right: .5%; }
+  form button { width: 9%; background: #29F; border: none; border-radius: 10%/50%; padding: 10px; color: #CDF; font-size: 100%; }
+  table { position: fixed; bottom: 0; width: 100%; 
+  #messages { list-style-type: none; margin: 0; padding: 0; }
+  #messages li { padding: 5px 10px; }
+  #messages li:nth-child(odd) { background: #eee; }
+  #typing {color: #22F;}
+  </style>
+</head>
+<script src="/socket.io/socket.io.js"></script>
+<script src="http://code.jquery.com/jquery-1.11.1.js"></script>
+<script>
+var socket = io({'sync disconnect on unload': true });
+var isTyping = false;
+var typingTimer;
+
+$(document).ready(function() {
+  $('form').on('submit', function(e){
+    socket.emit('chat', $("#m").val());
+    $("#m").val('');
+    e.preventDefault();
+    return false;
+  });
+
+  socket.on('chat', function(msg){
+    $('#messages').append($('<li>').text(msg));
+    clearTimeout(typingTimer);
+    $('typing').empty();
+  });
+
+  $('form').on('input', function(){
+    socket.emit('typing');
+  });
+
+  socket.on('typing', function(){
+    if (!isTyping) {
+      $('#typing').append("Someone is typing...");
+      isTyping = true;
+      setTimer();
+    } else {
+      setTimer();
+    }
+  });
+
+  function setTimer() {
+    clearTimeout(typingTimer);
+    typingTimer = setTimeout(function(){
+      $('#typing').empty();
+      isTyping = false;
+    }, 1500);
+  }
+
+  $(window).on('beforeunload', function(){
+    socket.close();
+  });
+});
+</script>
+<body>
+  <ul id="messages"></ul>
+  <table>
+    <tr>
+      <td>
+        <p id="typing"></p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <form action="">
+          <input id="m" autocomplete="off" /><button>Send</button>
+        </form>
+        <td>
+          <tr>
+          </table>
+        </body>
+        </html>
