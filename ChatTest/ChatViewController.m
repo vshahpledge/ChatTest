@@ -61,19 +61,27 @@
     } forEvent:@"chat"];
     
     [[SocketIOSingleton sharedSingleton] setCallback:^(NSArray *data, void (^ack)(NSArray*)) {
-        [self.typingTimer invalidate];
-        self.typingTimer = nil;
-        self.typingTimer.fireDate = [NSDate dateWithTimeIntervalSinceNow:1500];
-        self.typingTimer = [[NSTimer alloc] initWithFireDate:self.typingTimerFireDate interval:0 target:self selector:@selector(hideTypingIndicator) userInfo:nil repeats:NO];
-        self.typingTimerFireDate = [NSDate dateWithTimeIntervalSinceNow:1500];
-        self.showTypingIndicator = YES;
+        [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+            if (self.typingTimer.valid) {
+                NSLog(@"Fire date: %@, now: %@", self.typingTimer.fireDate, [NSDate date]);
+                self.typingTimer.fireDate = [self.typingTimer.fireDate dateByAddingTimeInterval:1.5];
+            } else {
+                self.typingTimer = [NSTimer scheduledTimerWithTimeInterval:1.5 target:self selector:@selector(hideTypingIndicator) userInfo:nil repeats:NO];
+                NSLog(@"Fire date: %@, now: %@", self.typingTimer.fireDate, [NSDate date]);
+                self.showTypingIndicator = YES;
+                [self scrollToBottomAnimated:YES];
+            }
+        }];
     } forEvent:@"typing"];
 }
 
 - (void)hideTypingIndicator {
-    self.showTypingIndicator = NO;
-    [self.typingTimer invalidate];
-    self.typingTimer = nil;
+    [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+        self.showTypingIndicator = NO;
+        
+        [self.typingTimer invalidate];
+        self.typingTimer = nil;
+    }];
 }
 
 #pragma mark - JSQMessagesViewController method overrides
@@ -138,7 +146,7 @@
 }
 
 - (void)collectionView:(JSQMessagesCollectionView *)collectionView didDeleteMessageAtIndexPath:(NSIndexPath *)indexPath {
-        [[self fetchedResultsController].managedObjectContext deleteObject:[[self fetchedResultsController] objectAtIndexPath:indexPath]];
+    [[self fetchedResultsController].managedObjectContext deleteObject:[[self fetchedResultsController] objectAtIndexPath:indexPath]];
 }
 
 - (id<JSQMessageBubbleImageDataSource>)collectionView:(JSQMessagesCollectionView *)collectionView messageBubbleImageDataForItemAtIndexPath:(NSIndexPath *)indexPath {
