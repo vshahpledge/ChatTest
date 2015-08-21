@@ -8,7 +8,6 @@
 
 #import "MasterViewController.h"
 #import "AsyncSocketSingleton.h"
-#import <MagicalRecord/MagicalRecord.h>
 #import "SocketIOSingleton.h"
 #import "ChatUtilities.h"
 #import "UITextView+Placeholder.h"

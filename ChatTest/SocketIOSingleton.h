@@ -14,7 +14,8 @@
 + (instancetype)sharedSingleton;
 - (void)connect;
 - (void)disconnect;
-- (void)sendMessage:(NSString *)message;
-- (void)setCallback:(void (^ __nonnull)(NSArray * __nullable, void (^ __nullable)(NSArray * __nonnull)))callback forEvent:(NSString * __nonnull)event;
+- (void)sendMessage:(NSArray *)message;
+- (void)sendTyping;
+- (void)setCallback:(void (^)(NSArray *, void (^)(NSArray *)))callback forEvent:(NSString *)event;
 
 @end

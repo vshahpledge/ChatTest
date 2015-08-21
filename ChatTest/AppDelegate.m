@@ -8,9 +8,9 @@
 
 #import "AppDelegate.h"
 #import "MasterViewController.h"
-#import <MagicalRecord/MagicalRecord.h>
 #import "AsyncSocketSingleton.h"
 #import "SocketIOSingleton.h"
+#import "ChatViewController.h"
 
 @interface AppDelegate ()
 
@@ -22,9 +22,8 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
     UINavigationController *navigationController = (UINavigationController *)self.window.rootViewController;
-    MasterViewController *controller = (MasterViewController *)navigationController.topViewController;
+    ChatViewController *controller = (ChatViewController *)navigationController.topViewController;
     controller.managedObjectContext = self.managedObjectContext;
-    [MagicalRecord setupAutoMigratingCoreDataStack];
     
     return YES;
 }

@@ -54,11 +54,15 @@ static SocketIOClient *io = nil;
     [io closeWithFast:YES];
 }
 
-- (void)sendMessage:(NSString *)message {
-    [io emit:@"chat" withItems:@[message]];
+- (void)sendMessage:(NSArray *)message {
+    [io emit:@"chat" withItems:message];
 }
 
-- (void)setCallback:(void (^ __nonnull)(NSArray * __nullable, void (^ __nullable)(NSArray * __nonnull)))callback forEvent:(NSString * __nonnull)event {
+- (void)sendTyping {
+    [io emit:@"typing" withItems:@[]];
+}
+
+- (void)setCallback:(void (^)(NSArray *, void (^)(NSArray *)))callback forEvent:(NSString *)event {
     [io on:event callback:callback];
 }
 

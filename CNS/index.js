@@ -13,8 +13,8 @@ io.on('connection', function(socket){
 		console.log('user disconnected');
 	});
 
-	socket.on('chat', function(msg){
-		io.emit('chat', msg, (new Date).getTime());
+	socket.on('chat', function(userId, username, msg){
+		io.emit('chat', userId, username, (new Date).getTime(), msg);
 	});
 
 	socket.on('typing', function(){

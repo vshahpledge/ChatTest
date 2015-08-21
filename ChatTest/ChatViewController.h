@@ -6,8 +6,12 @@
 //  Copyright (c) 2015 Vikas Shah. All rights reserved.
 //
 
+#import <CoreData/CoreData.h>
 #import <JSQMessagesViewController/JSQMessagesViewController.h>
 
-@interface ChatViewController : JSQMessagesViewController
+@interface ChatViewController : JSQMessagesViewController <NSFetchedResultsControllerDelegate, UIActionSheetDelegate>
+
+@property (strong, nonatomic) NSFetchedResultsController *fetchedResultsController;
+@property (strong, nonatomic) NSManagedObjectContext *managedObjectContext;
 
 @end

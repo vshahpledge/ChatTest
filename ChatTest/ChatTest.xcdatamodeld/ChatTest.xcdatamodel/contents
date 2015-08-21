@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="7701" systemVersion="14F27" minimumToolsVersion="Automatic" macOSVersion="Automatic" iOSVersion="Automatic">
+    <entity name="JSQMessage" syncable="YES">
+        <attribute name="messageObject" optional="YES" attributeType="Transformable" syncable="YES"/>
+    </entity>
     <entity name="Message">
         <attribute name="message" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="timeStamp" optional="YES" attributeType="Date">
@@ -9,5 +12,6 @@
     </entity>
     <elements>
         <element name="Message" positionX="261" positionY="189" width="128" height="75"/>
+        <element name="JSQMessage" positionX="261" positionY="207" width="128" height="60"/>
     </elements>
 </model>

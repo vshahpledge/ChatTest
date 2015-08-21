@@ -12,12 +12,31 @@
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
-                        <segue destination="uZG-IY-nsN" kind="relationship" relationship="rootViewController" id="J5j-qy-bs5"/>
+                        <segue destination="Ski-Ki-HPb" kind="relationship" relationship="rootViewController" id="AHC-BD-1zU"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="eq9-QA-ai8" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-148" y="64"/>
+        </scene>
+        <!--ChatTest-->
+        <scene sceneID="voC-Qp-F4l">
+            <objects>
+                <viewController id="Ski-Ki-HPb" customClass="ChatViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="nqp-Uj-4nn"/>
+                        <viewControllerLayoutGuide type="bottom" id="etQ-3v-O0I"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="geB-gO-bel">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="ChatTest" id="6Xg-5P-cqK"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="g0H-Pz-fkr" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="627" y="-594"/>
         </scene>
         <!--Master View Controller-->
         <scene sceneID="h9m-At-sMK">
