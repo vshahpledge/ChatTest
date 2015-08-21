@@ -63,11 +63,9 @@
     [[SocketIOSingleton sharedSingleton] setCallback:^(NSArray *data, void (^ack)(NSArray*)) {
         [[NSOperationQueue mainQueue] addOperationWithBlock:^{
             if (self.typingTimer.valid) {
-                NSLog(@"Fire date: %@, now: %@", self.typingTimer.fireDate, [NSDate date]);
                 self.typingTimer.fireDate = [self.typingTimer.fireDate dateByAddingTimeInterval:1.5];
             } else {
                 self.typingTimer = [NSTimer scheduledTimerWithTimeInterval:1.5 target:self selector:@selector(hideTypingIndicator) userInfo:nil repeats:NO];
-                NSLog(@"Fire date: %@, now: %@", self.typingTimer.fireDate, [NSDate date]);
                 self.showTypingIndicator = YES;
                 [self scrollToBottomAnimated:YES];
             }
