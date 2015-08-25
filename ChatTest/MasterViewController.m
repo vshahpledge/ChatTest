@@ -36,8 +36,8 @@ static void * XXContext = &XXContext;
     UIBarButtonItem *reconnectButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh target:self action:@selector(reconnect)];
     self.navigationItem.leftBarButtonItem = reconnectButton;
 
-    UIBarButtonItem *readButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemReply target:self action:@selector(writeData)];
-    self.navigationItem.rightBarButtonItem = readButton;
+//    UIBarButtonItem *readButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemReply target:self action:@selector(writeData)];
+//    self.navigationItem.rightBarButtonItem = readButton;
     
     [[SocketIOSingleton sharedSingleton] setCallback:^(NSArray *data, void (^ack)(NSArray*)) {
         [self insertNewObject:data];
@@ -64,11 +64,6 @@ static void * XXContext = &XXContext;
 
 - (void)reconnect {
     [[SocketIOSingleton sharedSingleton] connect];
-}
-
-- (void)writeData {
-    NSString *string = @"From the app!";
-    [[SocketIOSingleton sharedSingleton] sendMessage:string];
 }
 
 - (IBAction)sendMessageButtonPressed:(id)sender {

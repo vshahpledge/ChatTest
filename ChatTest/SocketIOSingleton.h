@@ -15,6 +15,7 @@
 - (void)connect;
 - (void)disconnect;
 - (void)sendMessage:(NSArray *)message;
+- (void)sendImage:(NSArray *)message;
 - (void)sendTyping;
 - (void)setCallback:(void (^)(NSArray *, void (^)(NSArray *)))callback forEvent:(NSString *)event;
 

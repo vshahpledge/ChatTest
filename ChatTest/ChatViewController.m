@@ -57,10 +57,6 @@
 
 - (void)setUpCallbacks {
     [[SocketIOSingleton sharedSingleton] setCallback:^(NSArray *data, void (^ack)(NSArray*)) {
-        [self insertNewObject:data];
-    } forEvent:@"chat"];
-    
-    [[SocketIOSingleton sharedSingleton] setCallback:^(NSArray *data, void (^ack)(NSArray*)) {
         [[NSOperationQueue mainQueue] addOperationWithBlock:^{
             if (self.typingTimer.valid) {
                 self.typingTimer.fireDate = [self.typingTimer.fireDate dateByAddingTimeInterval:1.5];
@@ -71,6 +67,14 @@
             }
         }];
     } forEvent:@"typing"];
+    
+    [[SocketIOSingleton sharedSingleton] setCallback:^(NSArray *data, void (^ack)(NSArray*)) {
+        [self insertNewObject:data];
+    } forEvent:@"chat"];
+    
+    [[SocketIOSingleton sharedSingleton] setCallback:^(NSArray *data, void (^ack)(NSArray*)) {
+        [self insertImage:data];
+    } forEvent:@"image"];
 }
 
 - (void)hideTypingIndicator {
@@ -88,8 +92,7 @@
            withMessageText:(NSString *)text
                   senderId:(NSString *)senderId
          senderDisplayName:(NSString *)senderDisplayName
-                      date:(NSDate *)date
-{
+                      date:(NSDate *)date {
     /**
      *  Sending a message. Your implementation of this method should do *at least* the following:
      *
@@ -97,15 +100,12 @@
      *  2. Add new id<JSQMessageData> object to your data source
      *  3. Call `finishSendingMessage`
      */
-    [JSQSystemSoundPlayer jsq_playMessageSentSound];
-    
     [[SocketIOSingleton sharedSingleton] sendMessage:@[senderId, senderDisplayName, text]];
     
     [self finishSendingMessageAnimated:YES];
 }
 
-- (void)didPressAccessoryButton:(UIButton *)sender
-{
+- (void)didPressAccessoryButton:(UIButton *)sender {
     UIActionSheet *sheet = [[UIActionSheet alloc] initWithTitle:@"Media messages"
                                                        delegate:self
                                               cancelButtonTitle:@"Cancel"
@@ -115,14 +115,16 @@
     [sheet showFromToolbar:self.inputToolbar];
 }
 
-- (void)actionSheet:(UIActionSheet *)actionSheet didDismissWithButtonIndex:(NSInteger)buttonIndex
-{
+- (void)actionSheet:(UIActionSheet *)actionSheet didDismissWithButtonIndex:(NSInteger)buttonIndex {
     if (buttonIndex == actionSheet.cancelButtonIndex) {
         return;
     }
     
     switch (buttonIndex) {
         case 0:
+            [[SocketIOSingleton sharedSingleton] sendImage:@[self.senderId,
+                                                             self.senderDisplayName,
+                                                             [UIImageJPEGRepresentation([UIImage imageNamed:@"goldengate"], 1.0) base64EncodedStringWithOptions:NSDataBase64Encoding64CharacterLineLength]]];
             break;
             
         case 1:
@@ -131,8 +133,6 @@
         case 2:
             break;
     }
-    
-    [JSQSystemSoundPlayer jsq_playMessageSentSound];
     
     [self finishSendingMessageAnimated:YES];
 }
@@ -383,12 +383,42 @@
     
     // If appropriate, configure the new managed object.
     // Normally you should use accessor methods, but using KVC here avoids the need to add a custom class to the template.
+    NSDate *sentDate = [NSDate dateWithTimeIntervalSince1970:([messageData[2] doubleValue]/1000)];
     JSQMessage *newMessage = [[JSQMessage alloc] initWithSenderId:messageData[0]
                                                 senderDisplayName:messageData[1]
-                                                             date:[NSDate dateWithTimeIntervalSince1970:([messageData[2] doubleValue]/1000)]
+                                                             date:sentDate
                                                              text:messageData[3]];
     
     [newManagedObject setValue:newMessage forKey:@"messageObject"];
+    [newManagedObject setValue:sentDate forKey:@"date"];
+    
+    // Save the context.
+    NSError *error = nil;
+    if (![context save:&error]) {
+        // Replace this implementation with code to handle the error appropriately.
+        // abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
+        NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
+        abort();
+    }
+}
+
+- (void)insertImage:(NSArray *)messageData {
+    NSManagedObjectContext *context = [self.fetchedResultsController managedObjectContext];
+    NSEntityDescription *entity = [[self.fetchedResultsController fetchRequest] entity];
+    NSManagedObject *newManagedObject = [NSEntityDescription insertNewObjectForEntityForName:[entity name] inManagedObjectContext:context];
+    
+    // If appropriate, configure the new managed object.
+    // Normally you should use accessor methods, but using KVC here avoids the need to add a custom class to the template.
+    NSDate *sentDate = [NSDate dateWithTimeIntervalSince1970:([messageData[2] doubleValue]/1000)];
+    UIImage *image = [UIImage imageWithData:[[NSData alloc] initWithBase64EncodedString:messageData[3] options:NSDataBase64DecodingIgnoreUnknownCharacters]];
+    JSQPhotoMediaItem *photoItem = [[JSQPhotoMediaItem alloc] initWithImage:image];
+    JSQMessage *photoMessage = [[JSQMessage alloc] initWithSenderId:messageData[0]
+                                                  senderDisplayName:messageData[1]
+                                                               date:sentDate
+                                                              media:photoItem];
+    
+    [newManagedObject setValue:photoMessage forKey:@"messageObject"];
+    [newManagedObject setValue:sentDate forKey:@"date"];
     
     // Save the context.
     NSError *error = nil;
@@ -421,7 +451,7 @@
     
     // Edit the section name key path and cache name if appropriate.
     // nil for section name key path means "no sections".
-    NSFetchedResultsController *aFetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest managedObjectContext:self.managedObjectContext sectionNameKeyPath:nil cacheName:@"Master"];
+    NSFetchedResultsController *aFetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest managedObjectContext:self.managedObjectContext sectionNameKeyPath:nil cacheName:nil];
     aFetchedResultsController.delegate = self;
     self.fetchedResultsController = aFetchedResultsController;
     

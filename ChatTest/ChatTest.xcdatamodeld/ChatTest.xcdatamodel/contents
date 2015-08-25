@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="7701" systemVersion="14F27" minimumToolsVersion="Automatic" macOSVersion="Automatic" iOSVersion="Automatic">
     <entity name="JSQMessage" syncable="YES">
+        <attribute name="date" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="messageObject" optional="YES" attributeType="Transformable" syncable="YES"/>
     </entity>
     <entity name="Message">
@@ -11,7 +12,7 @@
         <userInfo/>
     </entity>
     <elements>
+        <element name="JSQMessage" positionX="261" positionY="207" width="128" height="75"/>
         <element name="Message" positionX="261" positionY="189" width="128" height="75"/>
-        <element name="JSQMessage" positionX="261" positionY="207" width="128" height="60"/>
     </elements>
 </model>

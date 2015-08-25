@@ -54,12 +54,16 @@ static SocketIOClient *io = nil;
     [io closeWithFast:YES];
 }
 
+- (void)sendTyping {
+    [io emit:@"typing" withItems:@[]];
+}
+
 - (void)sendMessage:(NSArray *)message {
     [io emit:@"chat" withItems:message];
 }
 
-- (void)sendTyping {
-    [io emit:@"typing" withItems:@[]];
+- (void)sendImage:(NSArray *)message {
+    [io emit:@"image" withItems:message];
 }
 
 - (void)setCallback:(void (^)(NSArray *, void (^)(NSArray *)))callback forEvent:(NSString *)event {

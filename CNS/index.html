@@ -45,13 +45,6 @@
       return false;
     });
 
-    socket.on('chat', function(userId, username, date, msg){
-      console.log(msg);
-      $('#messages').append($('<li>').text(msg));
-      clearTimeout(typingTimer);
-      $('typing').empty();
-    });
-
     $('form').on('input', function(){
       socket.emit('typing');
     });
@@ -64,6 +57,20 @@
       } else {
         setTimer();
       }
+    });
+
+    socket.on('chat', function(userId, username, date, msg){
+      console.log(msg);
+      $('#messages').append($('<li>').text(msg));
+      clearTimeout(typingTimer);
+      $('typing').empty();
+    });
+
+    socket.on('image', function(userId, username, date, img){
+      console.log(msg);
+      $('#messages').append($('<li>').text(msg));
+      clearTimeout(typingTimer);
+      $('typing').empty();
     });
 
     function setTimer() {

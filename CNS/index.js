@@ -13,13 +13,17 @@ io.on('connection', function(socket){
 		console.log('user disconnected');
 	});
 
+	socket.on('typing', function(){
+		io.emit('typing');
+	})
+
 	socket.on('chat', function(userId, username, msg){
 		io.emit('chat', userId, username, (new Date).getTime(), msg);
 	});
 
-	socket.on('typing', function(){
-		io.emit('typing');
-	})
+	socket.on('image', function(userId, username, img) {
+		io.emit('image', userId, username, (new Date).getTime(), img);
+	});
 });
 
 http.listen(3000, function(){
