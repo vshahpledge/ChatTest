@@ -67,8 +67,12 @@
     });
 
     socket.on('image', function(userId, username, date, img){
-      console.log(msg);
-      $('#messages').append($('<li>').text(msg));
+      if (img.image) {
+        var image = new Image();
+        image.src = 'data:image/jpeg;base64,' + img.buffer;
+        ctx.drawImage(image, 0, 0);
+      }
+      $('#messages').append($('<li>')img);
       clearTimeout(typingTimer);
       $('typing').empty();
     });
@@ -85,22 +89,22 @@
       socket.close();
     });
   });
-  </script>
-  <body>
-    <ul id="messages"></ul>
-    <table>
-      <tr>
+</script>
+<body>
+  <ul id="messages"></ul>
+  <table>
+    <tr>
+      <td>
+        <p id="typing"></p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <form action="">
+          <input id="m" autocomplete="off" /><button>Send</button>
+        </form>
         <td>
-          <p id="typing"></p>
-        </td>
-      </tr>
-      <tr>
-        <td>
-          <form action="">
-            <input id="m" autocomplete="off" /><button>Send</button>
-          </form>
-          <td>
-            <tr>
-            </table>
-          </body>
-          </html>
+          <tr>
+          </table>
+        </body>
+        </html>
